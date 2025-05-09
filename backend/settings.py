@@ -23,12 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@zhb4gusmuvqe#tgj7j_md^87vnv43yx(i@o2p9)*4luaq(nr5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.ngrok-free.app',  # Permite todos los subdominios de ngrok-free.app
+    "https://front-conexion-a6hucfa8c6ecdehr.brazilsouth-01.azurewebsites.net/",
 ]
 
 
@@ -82,10 +80,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Nombre de la base de datos
+        'USER': 'aqfbgavakl@front-server',  # Importante agregar @host
+        'PASSWORD': '',
+        'HOST': 'front-server.postgres.database.azure.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',  # Azure PostgreSQL requiere SSL
+        }
     }
 }
+
 
 
 # Password validation
@@ -122,7 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
